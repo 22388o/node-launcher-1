@@ -16,7 +16,7 @@ const coreConfig = `
     "tendermint_config": {
         "RootDir": "/root/.pocket",
         "ProxyApp": "tcp://127.0.0.1:26658",
-        "Moniker": "af05d07b101d",
+        "Moniker": "fdd1670a4962",
         "FastSyncMode": true,
         "DBBackend": "goleveldb",
         "LevelDBOptions": {
@@ -27,14 +27,14 @@ const coreConfig = `
             "open_files_cache_capacity": -1,
             "write_buffer": 838860
         },
-        "DBPath": "data",
+        "DBPath": "../pocket-data/data",
         "LogLevel": "*:error",
         "LogFormat": "plain",
         "Genesis": "config/genesis.json",
-        "PrivValidatorKey": "priv_val_key.json",
-        "PrivValidatorState": "priv_val_state.json",
+        "PrivValidatorKey": "../pocket-data/priv_val_key.json",
+        "PrivValidatorState": "../pocket-data/priv_val_state.json",
         "PrivValidatorListenAddr": "",
-        "NodeKey": "node_key.json",
+        "NodeKey": "../pocket-data/node_key.json",
         "ABCI": "socket",
         "ProfListenAddress": "",
         "FilterPeers": false,
@@ -75,7 +75,7 @@ const coreConfig = `
             "UPNP": false,
             "AddrBook": "config/addrbook.json",
             "AddrBookStrict": false,
-            "MaxNumInboundPeers": 21,
+            "MaxNumInboundPeers": 14,
             "MaxNumOutboundPeers": 7,
             "UnconditionalPeerIDs": "",
             "PersistentPeersMaxDialPeriod": 0,
@@ -114,7 +114,7 @@ const coreConfig = `
         },
         "Consensus": {
             "RootDir": "/root/.pocket",
-            "WalPath": "data/cs.wal/wal",
+            "WalPath": "../pocket-data/data/cs.wal/wal",
             "TimeoutPropose": 120000000000,
             "TimeoutProposeDelta": 10000000000,
             "TimeoutPrevote": 60000000000,
@@ -144,7 +144,7 @@ const coreConfig = `
         "data_dir": "/root/.pocket",
         "genesis_file": "genesis.json",
         "chains_name": "chains.json",
-        "evidence_db_name": "pocket_evidence",
+        "evidence_db_name": "../pocket-data/pocket_evidence",
         "tendermint_uri": "tcp://localhost:26657",
         "keybase_name": "../pocket-keys/pocket-keybase",
         "rpc_port": "8081",
@@ -183,93 +183,9 @@ export class Pocket extends Bitcoin {
             version: 'RC-0.8.2',
             clientVersion: 'RC-0.8.2',
             image: 'rburgett/pocketcore:RC-0.8.2',
-            dataDir: '/root/.pocket',
+            dataDir: '/root/pocket-data',
             walletDir: '/root/pocket-keys',
-            configDir: '',
-            networks: [NetworkType.MAINNET, NetworkType.TESTNET],
-            breaking: false,
-            generateRuntimeArgs(data: CryptoNodeData): string {
-              const { network = '' } = data;
-              return ` start --${network.toLowerCase()}`;
-            },
-          },
-          {
-            version: 'RC-0.7.0.1',
-            clientVersion: 'RC-0.7.0.1',
-            image: 'rburgett/pocketcore:RC-0.7.0.1',
-            dataDir: '/root/.pocket',
-            walletDir: '/root/pocket-keys',
-            configDir: '',
-            networks: [NetworkType.MAINNET, NetworkType.TESTNET],
-            breaking: false,
-            generateRuntimeArgs(data: CryptoNodeData): string {
-              const { network = '' } = data;
-              return ` start --${network.toLowerCase()} --useCache`;
-            },
-          },
-          {
-            version: 'RC-0.7.0',
-            clientVersion: 'RC-0.7.0',
-            image: 'rburgett/pocketcore:RC-0.7.0',
-            dataDir: '/root/.pocket',
-            walletDir: '/root/pocket-keys',
-            configDir: '',
-            networks: [NetworkType.MAINNET, NetworkType.TESTNET],
-            breaking: false,
-            generateRuntimeArgs(data: CryptoNodeData): string {
-              const { network = '' } = data;
-              return ` start --${network.toLowerCase()} --useCache`;
-            },
-          },
-          {
-            version: 'RC-0.6.4.1',
-            clientVersion: 'RC-0.6.4.1',
-            image: 'rburgett/pocketcore:RC-0.6.4.1',
-            dataDir: '/root/.pocket',
-            walletDir: '/root/pocket-keys',
-            configDir: '',
-            networks: [NetworkType.MAINNET, NetworkType.TESTNET],
-            breaking: false,
-            generateRuntimeArgs(data: CryptoNodeData): string {
-              const { network = '' } = data;
-              return ` start --${network.toLowerCase()} --useCache`;
-            },
-          },
-          {
-            version: 'RC-0.6.4',
-            clientVersion: 'RC-0.6.4',
-            image: 'rburgett/pocketcore:RC-0.6.4',
-            dataDir: '/root/.pocket',
-            walletDir: '/root/pocket-keys',
-            configDir: '',
-            networks: [NetworkType.MAINNET, NetworkType.TESTNET],
-            breaking: false,
-            generateRuntimeArgs(data: CryptoNodeData): string {
-              const { network = '' } = data;
-              return ` start --${network.toLowerCase()} --useCache`;
-            },
-          },
-          {
-            version: 'RC-0.6.3.7',
-            clientVersion: 'RC-0.6.3.7',
-            image: 'rburgett/pocketcore:RC-0.6.3.7',
-            dataDir: '/root/.pocket',
-            walletDir: '/root/pocket-keys',
-            configDir: '',
-            networks: [NetworkType.MAINNET, NetworkType.TESTNET],
-            breaking: false,
-            generateRuntimeArgs(data: CryptoNodeData): string {
-              const { network = '' } = data;
-              return ` start --${network.toLowerCase()}`;
-            },
-          },
-          {
-            version: 'RC-0.6.3.6',
-            clientVersion: 'RC-0.6.3.6',
-            image: 'rburgett/pocketcore:RC-0.6.3.6',
-            dataDir: '/root/.pocket',
-            walletDir: '/root/pocket-keys',
-            configDir: '',
+            configDir: '/root/.pocket/config',
             networks: [NetworkType.MAINNET, NetworkType.TESTNET],
             breaking: false,
             generateRuntimeArgs(data: CryptoNodeData): string {
@@ -315,10 +231,10 @@ export class Pocket extends Bitcoin {
 
   static defaultSeeds = {
     [NetworkType.MAINNET]: '03b74fa3c68356bb40d58ecc10129479b159a145@seed1.mainnet.pokt.network:20656,64c91701ea98440bc3674fdb9a99311461cdfd6f@seed2.mainnet.pokt.network:21656,0057ee693f3ce332c4ffcb499ede024c586ae37b@seed3.mainnet.pokt.network:22856,9fd99b89947c6af57cd0269ad01ecb99960177cd@seed4.mainnet.pokt.network:23856,f2a4d0ec9d50ea61db18452d191687c899c3ca42@seed5.mainnet.pokt.network:24856,f2a9705924e8d0e11fed60484da2c3d22f7daba8@seed6.mainnet.pokt.network:25856,582177fd65dd03806eeaa2e21c9049e653672c7e@seed7.mainnet.pokt.network:26856,2ea0b13ab823986cfb44292add51ce8677b899ad@seed8.mainnet.pokt.network:27856,a5f4a4cd88db9fd5def1574a0bffef3c6f354a76@seed9.mainnet.pokt.network:28856,d4039bd71d48def9f9f61f670c098b8956e52a08@seed10.mainnet.pokt.network:29856,18eaabef85c661344b640b74597c4973af707ccb@pocket-seed.simply-vc.com.mt:26656,5c133f07ed296bb9e21e3e42d5f26e0f7d2b2832@poktseed100.chainflow.io:26656,361b1936d3fbe516628ebd6a503920fc4fc0f6a7@seed.pokt.rivet.cloud:26656',
-    [NetworkType.TESTNET]: 'b3d86cd8ab4aa0cb9861cb795d8d154e685a94cf@seed1.testnet.pokt.network:20656,17ca63e4ff7535a40512c550dd0267e519cafc1a@seed2.testnet.pokt.network:21656,f99386c6d7cd42a486c63ccd80f5fbea68759cd7@seed3.testnet.pokt.network:22656',
+    [NetworkType.TESTNET]: '3487f08b9e915f347eb4372b406326ffbf13d82c@testnet-seed-1.nodes.pokt.network:4301,27f4295d1407d9512a25d7f2ea91d1a415660c16@testnet-seed-2.nodes.pokt.network:4302,0beb1a93fe9ce2a3b058b98614f1ed0f5ad664d5@testnet-seed-3.nodes.pokt.network:4303,8fd656162dbbe0402f3cef111d3ad8d2723eef8e@testnet-seed-4.nodes.pokt.network:4304,80100476b67fea2e94c6b2f72e40cf8f6062ed21@testnet-seed-5.nodes.pokt.network:4305,370edf0882e094e83d4087d5f8801bbf24f5d931@testnet-seed-6.nodes.pokt.network:4306,57aff5a049846d14e2dcc06fdcc241d7ebe6a3eb@testnet-seed-7.nodes.pokt.network:4307,545fb484643cf2efbcf01ee2b7bc793ef275cd84@testnet-seed-8.nodes.pokt.network:4308',
   };
 
-  static defaultCPUs = 4;
+  static defaultCPUs = 16;
 
   static defaultMem = 8192;
 
@@ -417,6 +333,7 @@ export class Pocket extends Bitcoin {
 
     if(!running) {
       const {
+        configDir: containerConfigDir,
         dataDir: containerDataDir,
         walletDir: containerWalletDir,
       } = versionData;
@@ -437,14 +354,14 @@ export class Pocket extends Bitcoin {
       if (!configExists)
         await fs.writeFile(configPath, this.generateConfig(), 'utf8');
 
-      const dataDirConfigDir = path.join(dataDir, 'config');
-      await fs.ensureDir(dataDirConfigDir);
+      // const dataDirConfigDir = path.join(dataDir, 'config');
+      // await fs.ensureDir(dataDirConfigDir);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      await fs.copy(configPath, path.join(dataDirConfigDir, Pocket.configName(this)), {force: true});
+      // await fs.copy(configPath, path.join(dataDirConfigDir, Pocket.configName(this)), {force: true});
 
-      const genesisPath = path.join(dataDirConfigDir, 'genesis.json');
+      const genesisPath = path.join(configDir, 'genesis.json');
       const genesisExists = await fs.pathExists(genesisPath);
       if (!genesisExists)
         await fs.writeFile(genesisPath, PocketGenesis[this.network].trim(), 'utf8');
@@ -454,6 +371,7 @@ export class Pocket extends Bitcoin {
         const args = [
           '-i',
           '--rm',
+          '-v', `${configDir}:${containerConfigDir}`,
           '-v', `${dataDir}:${containerDataDir}`,
           '-v', `${walletDir}:${containerWalletDir}`,
           '--entrypoint', 'pocket',
@@ -484,6 +402,7 @@ export class Pocket extends Bitcoin {
         '--network', this.dockerNetwork,
         '-p', `${this.rpcPort}:${this.rpcPort}`,
         '-p', `${this.peerPort}:${this.peerPort}`,
+        '-v', `${configDir}:${containerConfigDir}`,
         '-v', `${dataDir}:${containerDataDir}`,
         '-v', `${walletDir}:${containerWalletDir}`,
         '--entrypoint', 'pocket',
